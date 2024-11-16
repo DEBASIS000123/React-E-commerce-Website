@@ -2,7 +2,6 @@ import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchProducts } from '../features/productSlice';
 import Product from './Product';
-import { setCategory } from '../features/categorySlice';
 
 function Products() {
   const dispatch = useDispatch();
