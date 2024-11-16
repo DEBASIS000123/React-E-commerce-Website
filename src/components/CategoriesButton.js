@@ -1,30 +1,36 @@
-import React, { useEffect, useState } from 'react'
+import React, { useState, useEffect } from 'react';
 
-function Categories({categories, filterItems}) {
-  const [item, setItem] = useState("all");
-  const handleChange = (value) => {
-    setItem(value);
-  }
+function Categories({ categories, filterItems }) {
+  const [selectedCategory, setSelectedCategory] = useState('all');
 
+  // Handle category change
+  const handleCategoryChange = (value) => {
+    setSelectedCategory(value);
+  };
+
+  // Trigger category filter whenever the selected category changes
   useEffect(() => {
-    filterItems(item);
-  }, [item]);
+    filterItems(selectedCategory);
+  }, [selectedCategory, filterItems]);
+
   return (
-    <>
-      <div className='flex flex-col sm:flex-row sm:justify-end sm:items-center'>
-        <span className='font-bold'>Categories:</span>
-        <select name="category" value={item} onChange={(e) => handleChange(e.target.value)} id="category" className='m-4 sm:p-1 bg-[#9f2089] text-white font-bold rounded-md mt-4 w-fit hover:bg-pink-500'>
-          {
-              categories.map((category, index) => {
-                  return (
-                      <option key={index} value={category}  className='m-4 p-1 font-bold rounded-md mt-4 w-fit'>{category}</option>
-                  )
-              })
-          }
-        </select>
-      </div>
-    </>
-  )
+    <div className="flex flex-col sm:flex-row sm:justify-end sm:items-center p-4">
+      <span className="font-semibold mr-2">Categories:</span>
+      <select
+        name="category"
+        value={selectedCategory}
+        onChange={(e) => handleCategoryChange(e.target.value)}
+        id="category"
+        className="bg-[#9f2089] text-white font-bold rounded-md p-2 hover:bg-pink-500 transition duration-300 ease-in-out"
+      >
+        {categories.map((category, index) => (
+          <option key={index} value={category} className="font-semibold">
+            {category}
+          </option>
+        ))}
+      </select>
+    </div>
+  );
 }
 
-export default Categories
+export default Categories;
